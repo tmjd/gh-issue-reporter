@@ -58,9 +58,9 @@ while start.weekday():
 
 info = []
 while start < (date.today()-timedelta(days=7)):
-    end = start + timedelta(days=7)
+    end = start + timedelta(days=6)
     info.append({'start':start, 'end':end, 'count':0, 'opened':0, 'closed':0})
-    start = end
+    start = end + timedelta(days=1)
 
 info.append({'start':start, 'end':date.today(), 'count':0, 'opened':0, 'closed':0})
 
@@ -76,5 +76,6 @@ for repo in gh.iter_user_repos("projectcalico"):
             if (issue.closed_at is not None) and (issue.closed_at.date() >= ent['start']) and (issue.closed_at.date() <= ent['end']):
                 ent['closed'] = ent['closed'] + 1
 
-for ent in info:
-    print "{0} had {1} +{2} -{3}".format(ent['end'].strftime("%a %Y-%m-%d"), ent['count'], ent['opened'], ent['closed'])
+print "Week ending  Open  New  Closed"
+for ent in list(reversed(info)):
+    print  "{0: <14}{1: <6}{2: <5}{3}".format(ent['end'].strftime("%a %m-%d"), ent['count'], ent['opened'], ent['closed'])
