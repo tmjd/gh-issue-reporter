@@ -57,10 +57,11 @@ while start.weekday():
     start = start + timedelta(days=1)
 
 info = []
-while start < (date.today()-timedelta(days=7)):
-    end = start + timedelta(days=6)
+end = start + timedelta(days=6)
+while end < date.today():
     info.append({'start':start, 'end':end, 'count':0, 'opened':0, 'closed':0})
     start = end + timedelta(days=1)
+    end = start + timedelta(days=6)
 
 info.append({'start':start, 'end':date.today(), 'count':0, 'opened':0, 'closed':0})
 
